@@ -4,7 +4,7 @@ import { Trash2, Plus, Minus } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
 export default function CartPage() {
-  // context'ten verileri alırken hata payı bırakmamak için kontrol ekledik
+ 
   const cartContext = useCart();
   
   if (!cartContext) {
