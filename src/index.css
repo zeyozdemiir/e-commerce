@@ -1,0 +1,14 @@
+@import "tailwindcss";
+
+@theme {
+  --color-bandage-blue: #23A6F0;
+  --color-bandage-dark: #252B42;
+  --color-bandage-gray: #737373;
+  --color-bandage-success: #2DC071;
+  --color-bandage-light: #FAFAFA;
+}
+
+@font-face {
+  font-family: 'Montserrat';
+  src: url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap');
+}
