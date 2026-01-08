@@ -2,21 +2,21 @@ import React from 'react';
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
 
 // 1. CONTEXT
-import { CartProvider } from './context/CartContext';
+import { CartProvider } from './Context/CartContext';
 
 // 2. COMPONENTS
-import Navbar from './components/Navbar';
-import Footer from './components/Footer';
-import Brands from './components/Brands'; 
+import Navbar from './Components/Navbar';
+import Footer from './Components/Footer';
+import Brands from './Components/Brands'; 
 
 // 3. PAGES
-import HomePage from './pages/HomePage';
-import ShopPage from './pages/ShopPage';
-import ProductPage from './pages/ProductPage';
-import CartPage from './pages/CartPage';
-import AboutPage from './pages/AboutPage';
-import BlogPage from './pages/BlogPage';
-import ContactPage from './pages/ContactPage';
+import HomePage from './Pages/HomePage';
+import ShopPage from './Pages/ShopPage';
+import ProductPage from './Pages/ProductPage';
+import CartPage from './Pages/CartPage';
+import AboutPage from './Pages/AboutPage';
+import BlogPage from './Pages/BlogPage';
+import ContactPage from './Pages/ContactPage';
 
 function App() {
   return (
