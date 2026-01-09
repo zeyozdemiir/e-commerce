@@ -1,15 +1,18 @@
 import React, { useState } from 'react';
-import { ChevronLeft, ChevronRight } from 'lucide-react';
+import { ChevronLeft, ChevronRight, ShoppingCart } from 'lucide-react'; 
 import { Link } from 'react-router-dom';
+import { useCart } from '../context/CartContext';
 
 export default function HomePage() {
   const [currentSlide, setCurrentSlide] = useState(0);
+  const { addToCart } = useCart();
 
   const slides = [
-    { id: 1, title: "NEW COLLECTION", subtitle: "SUMMER 2024", image: "/slider-1.png" },
-    { id: 2, title: "MODERN MINIMALIST", subtitle: "BEST SELLER", image: "/slider-2.png" }
+    { id: 1, title: "NEW COLLECTION", subtitle: "SUMMER 2026", image: "/slider-1.png" },
+    { id: 2, title: "MODERN STYLE", subtitle: "BEST SELLER", image: "/slider-2.png" }
   ];
 
+  // Ürün listesini senin istediğin product-X.jpg yapısına göre güncelledim
   const bestsellerProducts = [
     { id: 1, name: "Classic Sports Wear Set", category: "Activewear", price: "28.48", discount: "16.48" },
     { id: 2, name: "Basic Men's Cotton Tee", category: "Essentials", price: "15.00", discount: "9.50" },
@@ -22,93 +25,97 @@ export default function HomePage() {
   ];
 
   return (
-    <div className="w-full font-montserrat bg-white overflow-x-hidden">
+    <div className="w-full bg-white font-montserrat overflow-x-hidden">
       
-    
-      <section className="relative w-full py-6 flex justify-center"> 
-        <div className="relative h-[500px] md:h-[650px] w-[92%] bg-[#23A6F0] rounded-[20px] overflow-hidden shadow-lg">
+      {/* HERO SLIDER */}
+      <section className="relative w-full py-6 flex justify-center">
+        <div className="relative h-[500px] md:h-[650px] w-[94%] bg-[#23A6F0] rounded-[20px] overflow-hidden shadow-2xl">
           {slides.map((slide, index) => (
-            <div key={slide.id} className={`absolute inset-0 transition-opacity duration-1000 ${index === currentSlide ? "opacity-100 z-10" : "opacity-0 z-0"}`}>
-              {/* Görsel */}
-              <div className="absolute inset-0 flex items-center justify-end pointer-events-none pr-0 md:pr-10">
+            <div key={slide.id} className={`absolute inset-0 transition-all duration-1000 ${index === currentSlide ? "opacity-100 scale-100" : "opacity-0 scale-105"}`}>
+              <div className="absolute inset-0 flex items-center justify-end">
                 <img src={slide.image} className="h-full w-full md:w-auto object-contain object-right" alt="Hero" />
               </div>
-              {/* İçerik */}
               <div className="relative z-30 h-full max-w-[1050px] mx-auto px-10 flex items-center">
-                <div className="space-y-6 text-white">
-                  <h5 className="font-bold tracking-widest uppercase text-sm">{slide.subtitle}</h5>
-                  <h1 className="text-5xl md:text-7xl font-bold max-w-md leading-tight">{slide.title}</h1>
-                  <Link to="/shop" className="bg-white text-[#23A6F0] px-10 py-4 rounded-md font-bold text-lg uppercase inline-block shadow-lg hover:bg-gray-100 transition-all pointer-events-auto">
-                    Shop Now
-                  </Link>
+                <div className="text-white space-y-6">
+                  <h5 className="font-bold tracking-widest text-sm uppercase">{slide.subtitle}</h5>
+                  <h1 className="text-5xl md:text-7xl font-bold leading-tight">{slide.title}</h1>
+                  <Link to="/shop" className="bg-white text-[#23A6F0] px-12 py-4 rounded-md font-bold text-lg inline-block">Shop Now</Link>
                 </div>
               </div>
             </div>
           ))}
-          {/* Kontrol Okları */}
-          <button onClick={() => setCurrentSlide(prev => (prev === 0 ? 1 : 0))} className="absolute left-6 top-1/2 -translate-y-1/2 z-50 text-white/60 hover:text-white transition-all">
-            <ChevronLeft size={50} />
-          </button>
-          <button onClick={() => setCurrentSlide(prev => (prev === 1 ? 0 : 1))} className="absolute right-6 top-1/2 -translate-y-1/2 z-50 text-white/60 hover:text-white transition-all">
-            <ChevronRight size={50} />
-          </button>
+          <button onClick={() => setCurrentSlide(prev => prev === 0 ? 1 : 0)} className="absolute left-6 top-1/2 -translate-y-1/2 z-50 text-white/40"><ChevronLeft size={60} /></button>
+          <button onClick={() => setCurrentSlide(prev => prev === 1 ? 0 : 1)} className="absolute right-6 top-1/2 -translate-y-1/2 z-50 text-white/40"><ChevronRight size={60} /></button>
         </div>
       </section>
 
-      
-      <section className="py-20 bg-[#FAFAFA]">
-        <div className="max-w-[1050px] mx-auto px-4">
+      {/* EDITOR'S PICK (Görsel ve İsimler Tam İstediğin Gibi) */}
+      <section className="bg-[#FAFAFA] py-20 px-6">
+        <div className="max-w-[1050px] mx-auto">
           <div className="text-center mb-12">
-            <h2 className="text-2xl font-bold text-[#252B42] uppercase tracking-wider">EDITOR'S PICK</h2>
-            <p className="text-[#737373] text-sm mt-2">Discover your signature style</p>
+            <h3 className="text-2xl font-bold text-[#252B42] uppercase tracking-wider">EDITOR'S PICK</h3>
+            <p className="text-[#737373] text-sm mt-2">Problems trying to resolve the conflict between</p>
           </div>
-          <div className="flex flex-col md:flex-row gap-6 h-auto md:h-[500px]">
-            <div className="w-full md:w-[37.5%] relative group h-[500px] md:h-full overflow-hidden shadow-sm">
-              <img src="/shop-1.jpg" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" alt="Essentials" />
-              <Link to="/shop/essentials" className="absolute bottom-8 left-8 bg-white min-w-[170px] py-3 text-center font-bold text-[#252B42] uppercase shadow-md hover:bg-gray-100 transition-colors z-40">
-                ESSENTIALS
-              </Link>
+          
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-6 h-auto md:h-[500px]">
+            {/* ESSENTIALS (Eski Men yazan yer) */}
+            <div className="md:col-span-2 relative group overflow-hidden shadow-sm">
+              <img src="/shop-1.jpg" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" alt="Essentials" />
+              <div className="absolute bottom-6 left-6">
+                <button className="bg-white px-12 py-3 font-bold text-[#252B42] uppercase hover:bg-[#23A6F0] hover:text-white transition-all shadow-md">Essentials</button>
+              </div>
             </div>
-            <div className="w-full md:w-[37.5%] relative group h-[500px] md:h-full overflow-hidden shadow-sm">
-              <img src="/shop-2.jpg" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" alt="Women" />
-              <Link to="/shop/women" className="absolute bottom-8 left-8 bg-white min-w-[170px] py-3 text-center font-bold text-[#252B42] uppercase shadow-md hover:bg-gray-100 transition-colors z-40">
-                WOMEN
-              </Link>
+
+            {/* WOMEN (Kadın fotoğrafı ortalı) */}
+            <div className="relative group overflow-hidden shadow-sm">
+              <img src="/shop-2.jpg" className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-700" alt="Women" />
+              <div className="absolute bottom-6 left-6">
+                <button className="bg-white px-6 py-3 font-bold text-[#252B42] uppercase hover:bg-[#23A6F0] hover:text-white transition-all shadow-md">Women</button>
+              </div>
             </div>
-            <div className="w-full md:w-[25%] flex flex-col gap-6 h-[500px] md:h-full">
-               <div className="relative h-1/2 group overflow-hidden shadow-sm">
-                  <img src="/shop-3.jpg" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" alt="Accessories" />
-                  <Link to="/shop/accessories" className="absolute bottom-4 left-4 bg-white px-4 py-2 font-bold text-[#252B42] uppercase text-xs shadow-md z-40">
-                    ACCESSORIES
-                  </Link>
-               </div>
-               <div className="relative h-1/2 group overflow-hidden shadow-sm">
-                  <img src="/shop-5.jpg" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" alt="Kids" />
-                  <Link to="/shop/kids" className="absolute bottom-4 left-4 bg-white px-6 py-2 font-bold text-[#252B42] uppercase text-xs shadow-md z-40">
-                    KIDS
-                  </Link>
-               </div>
+
+            {/* ACCESSORIES & KIDS (Buradaki KIDS gerçekten kids) */}
+            <div className="flex flex-col gap-6">
+              <div className="relative flex-1 group overflow-hidden shadow-sm">
+                <img src="/shop-3.jpg" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" alt="Accessories" />
+                <div className="absolute bottom-6 left-6">
+                  <button className="bg-white px-4 py-2 font-bold text-[#252B42] uppercase text-xs">Accessories</button>
+                </div>
+              </div>
+              <div className="relative flex-1 group overflow-hidden shadow-sm">
+                <img src="/shop-4.jpg" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" alt="Kids" />
+                <div className="absolute bottom-6 left-6">
+                  <button className="bg-white px-6 py-2 font-bold text-[#252B42] uppercase text-xs">Kids</button>
+                </div>
+              </div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* 3. BESTSELLER PRODUCTS */}
-      <section className="py-20 max-w-[1050px] mx-auto px-6 text-center">
-        <h2 className="text-2xl font-bold text-[#252B42] mb-12 uppercase tracking-widest">Bestseller Products</h2>
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
-          {bestsellerProducts.map(product => (
-            <Link key={product.id} to={`/product/${product.id}`} className="block group relative z-30">
-              <div className="aspect-[3/4] bg-[#F3F3F3] overflow-hidden mb-4 shadow-sm">
-                <img src={`/product-${product.id}.jpg`} className="w-full h-full object-cover group-hover:scale-105 transition-all duration-500" alt={product.name} />
+      {/* BESTSELLER PRODUCTS (Görseller: product-1.jpg, 2, 3...) */}
+      <section className="py-20 max-w-[1050px] mx-auto px-6">
+        <div className="text-center mb-16">
+          <h3 className="text-2xl font-bold text-[#252B42] uppercase tracking-widest">Bestseller Products</h3>
+        </div>
+
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-y-12 gap-x-8">
+          {bestsellerProducts.map((product) => (
+            <div key={product.id} className="flex flex-col group text-center">
+              <div className="relative aspect-[3/4] bg-[#f3f3f3] rounded-xl overflow-hidden mb-4 group-hover:shadow-2xl transition-all duration-300">
+                {/* Product Resimleri product-1.jpg, product-2.jpg diye gidecek */}
+                <img src={`/product-${product.id}.jpg`} alt={product.name} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+                <div className="absolute inset-0 bg-black/10 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                    <button onClick={() => addToCart(product)} className="p-3 bg-white text-[#252B42] rounded-full shadow-lg hover:bg-[#23A6F0] hover:text-white transition-colors"><ShoppingCart size={20} /></button>
+                </div>
               </div>
-              <h5 className="font-bold text-[#252B42] truncate">{product.name}</h5>
-              <p className="text-[#737373] text-[14px] font-bold mb-2">{product.category}</p>
-              <div className="flex justify-center gap-2 font-bold">
-                <span className="text-[#BDBDBD]">${product.price}</span>
+              <h5 className="font-bold text-[#252B42] truncate px-2">{product.name}</h5>
+              <p className="text-[#737373] text-sm font-bold uppercase mt-1">{product.category}</p>
+              <div className="flex justify-center gap-3 font-bold mt-2">
+                <span className="text-[#BDBDBD] line-through">${product.price}</span>
                 <span className="text-[#23856D]">${product.discount}</span>
               </div>
-            </Link>
+            </div>
           ))}
         </div>
       </section>

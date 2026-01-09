@@ -9,7 +9,7 @@ export default function BlogPage() {
       title: "Exploring the Colorful Streets",
       excerpt: "The journey through the bright facades of the city was a dream come true for any photographer...",
       date: "July 15, 2024",
-      image: "/blog-1.jpg", // Public klasöründeki pembe araba resmi
+      image: "/blog-1.jpg", 
       category: "Google",
       trending: "New"
     },
@@ -18,7 +18,7 @@ export default function BlogPage() {
       title: "The Magic of Summer Umbrellas",
       excerpt: "Underneath the floating umbrellas, the city takes on a new perspective full of shadows and light...",
       date: "July 10, 2024",
-      image: "/blog-2.jpg", // Public klasöründeki şemsiyeli resim
+      image: "/blog-2.jpg", 
       category: "Trending",
       trending: "Hot"
     }
@@ -29,7 +29,7 @@ export default function BlogPage() {
       {/* HERO SECTION */}
       <section className="relative w-full h-[600px] overflow-hidden">
         <img 
-          src="/blog-hero.jpg" // Public klasöründeki renkli evler resmi
+          src="/blog-hero.jpg" 
           className="w-full h-full object-cover" 
           alt="Blog Hero" 
         />
