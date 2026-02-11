@@ -91,7 +91,7 @@ export default function BlogPage() {
                   </div>
                   <Link 
                     to={`/blog/${blog.id}`} 
-                    className="flex items-center gap-2 text-[#23A6F0] font-bold text-sm hover:translate-x-1 transition-transform"
+                    className="flex items-center gap-3 text-[#23A6F0] font-bold text-sm hover:translate-x-1 transition-transform"
                   >
                     Read More <ArrowRight size={16} />
                   </Link>
